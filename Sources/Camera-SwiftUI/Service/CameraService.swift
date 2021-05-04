@@ -57,7 +57,7 @@ extension Photo {
     }
 }
 
-public class CameraService: NSObject, Identifiable {
+public class CameraService: NSObject, Identifiable, ObservableObject {
     typealias PhotoCaptureSessionID = String
     
     //    MARK: Observed Properties UI must react to
@@ -126,6 +126,8 @@ public class CameraService: NSObject, Identifiable {
         sessionQueue.async {
             self.configureSession()
         }
+        
+        
     }
     
     //        MARK: Checks for permisions, setup obeservers and starts running session
@@ -509,7 +511,7 @@ public class CameraService: NSObject, Identifiable {
                     photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.__availablePreviewPhotoPixelFormatTypes.first!]
                 }
                 
-                photoSettings.photoQualityPrioritization = .speed
+                photoSettings.photoQualityPrioritization = .quality
                 
                 let photoCaptureProcessor = PhotoCaptureProcessor(with: photoSettings, willCapturePhotoAnimation: {
                     // Flash the screen to signal that AVCam took a photo.
@@ -522,6 +524,8 @@ public class CameraService: NSObject, Identifiable {
                     if let data = photoCaptureProcessor.photoData {
                         self.photo = Photo(originalData: data)
                         print("passing photo")
+                        
+                        print(UIImage(data: data)?.size)
                     } else {
                         print("No photo data")
                     }
