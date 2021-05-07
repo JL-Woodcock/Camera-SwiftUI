@@ -191,6 +191,7 @@ public class CameraService: NSObject, Identifiable, ObservableObject {
          Live Photo is not supported when AVCaptureMovieFileOutput is added to the session.
          */
         session.sessionPreset = .photo
+        session.sessionPreset = 
         
         // Add video input.
         do {
@@ -517,6 +518,7 @@ public class CameraService: NSObject, Identifiable, ObservableObject {
                     // Flash the screen to signal that AVCam took a photo.
                     DispatchQueue.main.async {
                         self.willCapturePhoto.toggle()
+                        print("WillCaptirePhoto \(willCapturePhoto ? 1 : 0)")
                         self.willCapturePhoto.toggle()
                     }
                 }, completionHandler: { (photoCaptureProcessor) in

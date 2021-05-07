@@ -73,6 +73,7 @@ public struct CameraPreview: UIViewRepresentable {
         viewFinder.videoPreviewLayer.session = session
         viewFinder.videoPreviewLayer.connection?.videoOrientation = .portrait
         viewFinder.videoPreviewLayer.videoGravity = .resizeAspectFill
+        viewFinder.videoPreviewLayer.met
         return viewFinder
     }
     
